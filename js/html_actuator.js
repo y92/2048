@@ -47,17 +47,18 @@ HTMLActuator.prototype.clearContainer = function (container) {
 };
 
 HTMLActuator.prototype.addTile = function (tile) {
-  var self = this;
+    var self = this;
+    
+    var wrapper   = document.createElement("div");
+    var inner     = document.createElement("div");
+    var position  = tile.previousPosition || { x: tile.x, y: tile.y };
+    var positionClass = this.positionClass(position);
+    
+    // We can't use classlist because it somehow glitches when replacing classes
+    var exp = Math.floor(Math.log2(tile.value/2))
+    var classes = ["tile", "tile-e" + exp, positionClass];
 
-  var wrapper   = document.createElement("div");
-  var inner     = document.createElement("div");
-  var position  = tile.previousPosition || { x: tile.x, y: tile.y };
-  var positionClass = this.positionClass(position);
-
-  // We can't use classlist because it somehow glitches when replacing classes
-  var classes = ["tile", "tile-" + tile.value, positionClass];
-
-  if (tile.value > 2048) classes.push("tile-super");
+  if (exp > 10) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
 
