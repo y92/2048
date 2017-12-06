@@ -1,4 +1,6 @@
 var base = 7;
+document.getElementById("number1").innerHTML= base * Math.pow(2,10)
+document.getElementById("number2").innerHTML= base * Math.pow(2,10)
 
 function GameManager(size, InputManager, Actuator, StorageManager) {
   this.size           = size; // Size of the grid
@@ -170,7 +172,7 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-            if (Math.floor(Math.log2(merged.value/2)) === 10) self.won = true;
+            if (Math.floor(Math.log2(merged.value/base)) === 10) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
